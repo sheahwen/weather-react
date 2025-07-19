@@ -1,13 +1,25 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(0, 0, 0, 1);
+@theme {
+  /* Colors */
+  --color-purple-custom: #6c40b5;
+  --color-gray-custom: #666666;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
+  color: black;
+  width: 100dvw;
+  height: 100%;
+  background: white;
+  user-select: none;
+}
+.screen-max-width {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  position: relative;
+  max-width: 1280px;
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
 }
