@@ -1,6 +1,7 @@
 import { MOCK_DATA } from "../mock-data";
 import { capitalizeFirstChar } from "../utils/string";
 import { convertToCelcius } from "../utils/temperature";
+import History from "./History";
 
 const Weather = () => {
   const data = MOCK_DATA[0];
@@ -28,6 +29,8 @@ const Weather = () => {
       <div className="text-sm font-bold">
         {data?.weather?.daily?.[0]?.summary}
       </div>
+
+      <History />
     </div>
   );
 };
