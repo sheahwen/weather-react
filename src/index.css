@@ -4,8 +4,10 @@
   /* Colors */
   --color-purple-custom: #6c40b5;
   --color-gray-custom: #666666;
-}
 
+  /* Box Shadows */
+  --shadow-custom: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
 body {
   color: black;
   width: 100dvw;
@@ -17,7 +19,7 @@ body {
   margin-inline-start: auto;
   margin-inline-end: auto;
   position: relative;
-  max-width: 1280px;
+  max-width: 768px;
 }
 
 @utility flex-center {
