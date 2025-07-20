@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
 import { useWeatherContext } from "../context/WeatherContext";
+import type { WeatherData } from "../types/weather";
 
 const History = () => {
   const { weatherHistory } = useWeatherContext();
@@ -19,7 +20,7 @@ const History = () => {
     <div className="mt-4 rounded-[24px] bg-white/20 p-5">
       <div className="mb-4 text-sm">Search History</div>
       <div className="flex flex-col gap-4">
-        {weatherHistory.map((data: any) => (
+        {weatherHistory.map((data: WeatherData) => (
           <HistoryItem key={data.searched_at} data={data} />
         ))}
       </div>
@@ -29,7 +30,7 @@ const History = () => {
 
 export default History;
 
-const HistoryItem = ({ data }: any) => {
+const HistoryItem = ({ data }: { data: WeatherData }) => {
   const { removeFromHistory, refreshWeather } = useWeatherContext();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
