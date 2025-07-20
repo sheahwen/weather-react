@@ -1,13 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 import { getWeatherData } from "../config/api";
-
-interface WeatherData {
-  searched_at: number;
-  city: string;
-  country: string;
-  weather: any;
-}
+import type { WeatherData } from "../types/weather";
 
 interface WeatherContextType {
   weatherHistory: WeatherData[];

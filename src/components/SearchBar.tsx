@@ -4,11 +4,12 @@ import { getGeocodingData, getWeatherData } from "../config/api";
 import { useWeatherContext } from "../context/WeatherContext";
 import GeocodingResult from "./GeocodingResult";
 import TextInput from "./TextInput";
+import type { GeocodingLocation, WeatherData } from "../types/weather";
 
 const SearchBar = () => {
   const [city, setCity] = useState("");
   const [countryCode, setCountryCode] = useState("");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<GeocodingLocation | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { addToHistory } = useWeatherContext();
@@ -76,7 +77,7 @@ const SearchBar = () => {
               ],
             },
           };
-          addToHistory(historyEntry);
+          addToHistory(historyEntry as unknown as WeatherData);
         }
       } else {
         setError("Location not found");

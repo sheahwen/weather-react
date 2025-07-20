@@ -2,6 +2,7 @@ import { useWeatherContext } from "../context/WeatherContext";
 import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
 import History from "./History";
 import WeatherIcon from "./WeatherIcon";
+import type { WeatherData } from "../types/weather";
 
 const Weather = () => {
   const { weatherHistory } = useWeatherContext();
@@ -28,7 +29,9 @@ const Weather = () => {
       <History />
 
       <div className="absolute -top-10 right-10 z-20 sm:right-20">
-        <WeatherIcon weather={data?.weather?.daily?.[0]?.weather?.[0].main} />
+        <WeatherIcon
+          weather={data?.weather?.daily?.[0]?.weather?.[0].main || ""}
+        />
       </div>
     </div>
   );
@@ -36,7 +39,7 @@ const Weather = () => {
 
 export default Weather;
 
-const WebLayout = ({ data }: any) => {
+const WebLayout = ({ data }: { data: WeatherData }) => {
   return (
     <>
       <div className="text-purple-custom text-[60px] leading-none font-bold">
@@ -49,7 +52,7 @@ const WebLayout = ({ data }: any) => {
       </div>
       <div className="text-gray-custom flex flex-row justify-between gap-2">
         <div className="font-semibold">
-          {capitalizeFirstChar(data?.city)}, {data?.country.toUpperCase()}
+          {capitalizeFirstChar(data?.city || "")}, {data?.country.toUpperCase()}
         </div>
         <div className="text-sm">{formatTimestamp(data?.searched_at)}</div>
         <div>Humidity: {data?.weather?.daily?.[0]?.humidity}%</div>
@@ -62,7 +65,7 @@ const WebLayout = ({ data }: any) => {
   );
 };
 
-const MobileLayout = ({ data }: any) => {
+const MobileLayout = ({ data }: { data: WeatherData }) => {
   return (
     <>
       <div className="grid grid-cols-2">
@@ -76,7 +79,8 @@ const MobileLayout = ({ data }: any) => {
             &deg;
           </div>
           <div className="text-gray-custom font-semibold">
-            {capitalizeFirstChar(data?.city)}, {data?.country.toUpperCase()}
+            {capitalizeFirstChar(data?.city || "")},{" "}
+            {data?.country.toUpperCase()}
           </div>
         </div>
         <div className="text-gray-custom self-end text-right">

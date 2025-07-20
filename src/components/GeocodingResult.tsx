@@ -1,5 +1,7 @@
+import type { GeocodingLocation } from "../types/weather";
+
 interface GeocodingResultProps {
-  result: any | null;
+  result: GeocodingLocation | null;
   error: string | null;
   loading: boolean;
 }
