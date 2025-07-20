@@ -1,13 +1,14 @@
-import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
 import { useWeatherContext } from "../context/WeatherContext";
+import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
 import History from "./History";
+import WeatherIcon from "./WeatherIcon";
 
 const Weather = () => {
   const { weatherHistory } = useWeatherContext();
   const data = weatherHistory.length > 0 ? weatherHistory[0] : null;
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-[20px] border border-white/50 bg-white/20 p-6 sm:rounded-[40px] sm:p-10">
+    <div className="relative mt-10 flex w-full flex-col gap-2 rounded-[20px] border border-white/50 bg-white/20 p-6 sm:rounded-[40px] sm:p-10">
       <div>Today&#39;s Weather</div>
       {data ? (
         <>
@@ -25,6 +26,10 @@ const Weather = () => {
       )}
 
       <History />
+
+      <div className="absolute -top-10 right-10 z-20 sm:right-20">
+        <WeatherIcon weather={data?.weather?.daily?.[0]?.weather?.[0].main} />
+      </div>
     </div>
   );
 };
