@@ -65,10 +65,10 @@ const SearchBar = () => {
             weather: {
               lat: geocodingResult.lat,
               lon: geocodingResult.lon,
-              current: { temp: 293.15 }, // 20°C in Kelvin
+              current: { temp: 20.3 },
               daily: [
                 {
-                  temp: { max: 298.15, min: 288.15 }, // 25°C max, 15°C min
+                  temp: { max: 24.5, min: 15.3 },
                   humidity: 65,
                   weather: [{ main: "Clear" }],
                   summary: "Clear sky with mild temperatures",
