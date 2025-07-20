@@ -5,6 +5,7 @@ interface TextInputProps {
   defaultValue?: string;
   value?: string;
   onChange?: (value: string) => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
   className?: string;
   required?: boolean;
 }
@@ -16,6 +17,7 @@ const TextInput = ({
   defaultValue = "",
   value,
   onChange,
+  onKeyDown,
   className = "",
   required = false,
 }: TextInputProps) => {
@@ -31,6 +33,7 @@ const TextInput = ({
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         className="border-none bg-transparent text-black outline-none placeholder:text-black/40"
+        onKeyDown={onKeyDown}
         required={required}
       />
     </div>

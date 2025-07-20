@@ -39,8 +39,6 @@ const SearchBar = () => {
             geocodingResult.lon,
           );
 
-          console.log(weatherData);
-
           // Add to weather history with real data
           const historyEntry = {
             searched_at: Date.now(),
@@ -101,7 +99,7 @@ const SearchBar = () => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSearch();
     }
@@ -117,6 +115,7 @@ const SearchBar = () => {
             placeholder="Tokyo"
             value={city}
             onChange={setCity}
+            onKeyDown={handleKeyDown}
             className="min-w-0 flex-1"
             required
           />
@@ -126,12 +125,13 @@ const SearchBar = () => {
             placeholder="JP"
             value={countryCode}
             onChange={setCountryCode}
+            onKeyDown={handleKeyDown}
             className="min-w-0 flex-1"
           />
         </div>
         <button
           onClick={handleSearch}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyDown}
           className="bg-purple-custom flex-center h-[40px] w-[40px] flex-none cursor-pointer rounded-lg border-none text-white transition-all duration-300 ease-in-out hover:bg-purple-600 sm:h-[60px] sm:w-[60px] sm:rounded-[20px]"
         >
           <svg
