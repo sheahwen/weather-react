@@ -19,12 +19,16 @@ export default History;
 
 const HistoryItem = ({ data }: any) => {
   return (
-    <div className="flex items-center justify-between rounded-2xl bg-white/40 p-4">
-      <div>
-        {capitalizeFirstChar(data.city)}, {data.country}
+    <div className="flex items-center justify-between gap-4 rounded-2xl bg-white/40 p-4">
+      <div className="flex flex-1 flex-col justify-between sm:flex-row">
+        <div className="text-sm">
+          {capitalizeFirstChar(data.city)}, {data.country}
+        </div>
+        <div className="text-xs sm:text-right sm:text-base">
+          {data.searched_at}
+        </div>
       </div>
       <div className="flex items-center gap-2">
-        <div>{data.searched_at}</div>
         <div className="flex gap-2">
           <button className="text-gray-custom rounded-full bg-white p-2">
             <svg
