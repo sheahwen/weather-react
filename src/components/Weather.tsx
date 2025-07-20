@@ -1,20 +1,28 @@
-import { MOCK_DATA } from "../mock-data";
-import { capitalizeFirstChar } from "../utils/string";
-import { convertToCelcius } from "../utils/temperature";
+import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
+import { useWeatherContext } from "../context/WeatherContext";
 import History from "./History";
 
 const Weather = () => {
-  const data = MOCK_DATA[0];
+  const { weatherHistory } = useWeatherContext();
+  const data = weatherHistory.length > 0 ? weatherHistory[0] : null;
 
   return (
     <div className="flex w-full flex-col gap-2 rounded-[20px] border border-white/50 bg-white/20 p-6 sm:rounded-[40px] sm:p-10">
       <div>Today&#39;s Weather</div>
-      <div className="hidden flex-col gap-2 sm:flex">
-        <WebLayout data={data} />
-      </div>
-      <div className="flex flex-col gap-2 sm:hidden">
-        <MobileLayout data={data} />
-      </div>
+      {data ? (
+        <>
+          <div className="hidden flex-col gap-2 sm:flex">
+            <WebLayout data={data} />
+          </div>
+          <div className="flex flex-col gap-2 sm:hidden">
+            <MobileLayout data={data} />
+          </div>
+        </>
+      ) : (
+        <div className="text-gray-custom py-8 text-center">
+          Search for a city to see weather information
+        </div>
+      )}
 
       <History />
     </div>
@@ -27,19 +35,18 @@ const WebLayout = ({ data }: any) => {
   return (
     <>
       <div className="text-purple-custom text-[60px] leading-none font-bold">
-        {convertToCelcius(data?.weather?.current?.temp).toFixed(0)}&deg;
+        {data?.weather?.current?.temp.toFixed(0)}&deg;
       </div>
       <div className="text-sm">
-        H: {convertToCelcius(data?.weather?.daily?.[0]?.temp?.max).toFixed(0)}
-        &deg; L:{" "}
-        {convertToCelcius(data?.weather?.daily?.[0]?.temp?.min).toFixed(0)}
+        H: {data?.weather?.daily?.[0]?.temp?.max.toFixed(0)}
+        &deg; L: {data?.weather?.daily?.[0]?.temp?.min.toFixed(0)}
         &deg;
       </div>
       <div className="text-gray-custom flex flex-row justify-between gap-2">
         <div className="font-semibold">
           {capitalizeFirstChar(data?.city)}, {data?.country.toUpperCase()}
         </div>
-        <div className="text-sm">{data?.searched_at}</div>
+        <div className="text-sm">{formatTimestamp(data?.searched_at)}</div>
         <div>Humidity: {data?.weather?.daily?.[0]?.humidity}%</div>
         <div>{data?.weather?.daily?.[0]?.weather?.[0].main}</div>
       </div>
@@ -56,13 +63,11 @@ const MobileLayout = ({ data }: any) => {
       <div className="grid grid-cols-2">
         <div className="gap flex flex-col">
           <div className="text-purple-custom text-[60px] leading-none font-bold">
-            {convertToCelcius(data?.weather?.current?.temp).toFixed(0)}&deg;
+            {data?.weather?.current?.temp.toFixed(0)}&deg;
           </div>
           <div className="text-sm">
-            H:{" "}
-            {convertToCelcius(data?.weather?.daily?.[0]?.temp?.max).toFixed(0)}
-            &deg; L:{" "}
-            {convertToCelcius(data?.weather?.daily?.[0]?.temp?.min).toFixed(0)}
+            H: {data?.weather?.daily?.[0]?.temp?.max.toFixed(0)}
+            &deg; L: {data?.weather?.daily?.[0]?.temp?.min.toFixed(0)}
             &deg;
           </div>
           <div className="text-gray-custom font-semibold">
@@ -71,7 +76,7 @@ const MobileLayout = ({ data }: any) => {
         </div>
         <div className="text-gray-custom self-end text-right">
           <div className="gap flex flex-col">
-            <div className="text-sm">{data?.searched_at}</div>
+            <div className="text-sm">{formatTimestamp(data?.searched_at)}</div>
             <div>Humidity: {data?.weather?.daily?.[0]?.humidity}%</div>
             <div>{data?.weather?.daily?.[0]?.weather?.[0].main}</div>
           </div>

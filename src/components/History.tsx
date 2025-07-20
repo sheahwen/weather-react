@@ -1,13 +1,13 @@
-import { MOCK_DATA } from "../mock-data";
-import { capitalizeFirstChar } from "../utils/string";
+import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
+import { useWeatherContext } from "../context/WeatherContext";
 
 const History = () => {
-  const history = MOCK_DATA.slice(1);
+  const { weatherHistory } = useWeatherContext();
   return (
     <div className="mt-4 rounded-[24px] bg-white/20 p-5">
       <div className="mb-4 text-sm">Search History</div>
       <div className="flex flex-col gap-4">
-        {history.map((data) => (
+        {weatherHistory.map((data: any) => (
           <HistoryItem key={data.searched_at} data={data} />
         ))}
       </div>
@@ -25,12 +25,12 @@ const HistoryItem = ({ data }: any) => {
           {capitalizeFirstChar(data.city)}, {data.country}
         </div>
         <div className="text-xs sm:text-right sm:text-base">
-          {data.searched_at}
+          {formatTimestamp(data.searched_at)}
         </div>
       </div>
       <div className="flex items-center gap-2">
         <div className="flex gap-2">
-          <button className="text-gray-custom rounded-full bg-white p-2">
+          <button className="text-gray-custom cursor-pointer rounded-full bg-white p-2">
             <svg
               width="16"
               height="16"
@@ -47,7 +47,7 @@ const HistoryItem = ({ data }: any) => {
               />
             </svg>
           </button>
-          <button className="text-gray-custom rounded-full bg-white p-2">
+          <button className="text-gray-custom cursor-pointer rounded-full bg-white p-2">
             <svg
               width="16"
               height="16"

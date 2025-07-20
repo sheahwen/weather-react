@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-import { getGeocodingData } from "../config/api";
+import { getGeocodingData, getWeatherData } from "../config/api";
+import { useWeatherContext } from "../context/WeatherContext";
 import GeocodingResult from "./GeocodingResult";
 import TextInput from "./TextInput";
 
@@ -10,6 +11,7 @@ const SearchBar = () => {
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const { addToHistory } = useWeatherContext();
 
   const handleSearch = async () => {
     if (!city.trim()) {
@@ -27,7 +29,57 @@ const SearchBar = () => {
       const data = await getGeocodingData(query);
 
       if (data && data.length > 0) {
-        setResult(data[0]);
+        const geocodingResult = data[0];
+        setResult(geocodingResult);
+
+        try {
+          // Fetch real weather data using One Call API
+          const weatherData = await getWeatherData(
+            geocodingResult.lat,
+            geocodingResult.lon,
+          );
+
+          console.log(weatherData);
+
+          // Add to weather history with real data
+          const historyEntry = {
+            searched_at: Date.now(),
+            city: geocodingResult.name,
+            country: geocodingResult.country,
+            weather: {
+              lat: geocodingResult.lat,
+              lon: geocodingResult.lon,
+              timezone: weatherData.timezone,
+              timezone_offset: weatherData.timezone_offset,
+              current: weatherData.current,
+              daily: weatherData.daily,
+            },
+          };
+
+          addToHistory(historyEntry);
+        } catch (weatherErr) {
+          console.error("Weather API error:", weatherErr);
+          // Fallback to mock data if weather API fails
+          const historyEntry = {
+            searched_at: Date.now(),
+            city: geocodingResult.name,
+            country: geocodingResult.country,
+            weather: {
+              lat: geocodingResult.lat,
+              lon: geocodingResult.lon,
+              current: { temp: 293.15 }, // 20°C in Kelvin
+              daily: [
+                {
+                  temp: { max: 298.15, min: 288.15 }, // 25°C max, 15°C min
+                  humidity: 65,
+                  weather: [{ main: "Clear" }],
+                  summary: "Clear sky with mild temperatures",
+                },
+              ],
+            },
+          };
+          addToHistory(historyEntry);
+        }
       } else {
         setError("Location not found");
       }
