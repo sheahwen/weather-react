@@ -1,8 +1,8 @@
-import { useWeatherContext } from "../context/WeatherContext";
+import { useWeatherContext } from "../hooks/useWeatherContext";
+import type { WeatherData } from "../types/weather";
 import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
 import History from "./History";
 import WeatherIcon from "./WeatherIcon";
-import type { WeatherData } from "../types/weather";
 
 const Weather = () => {
   const { weatherHistory } = useWeatherContext();

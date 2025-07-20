@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { capitalizeFirstChar, formatTimestamp } from "../utils/string";
-import { useWeatherContext } from "../context/WeatherContext";
+import { useWeatherContext } from "../hooks/useWeatherContext";
 import type { WeatherData } from "../types/weather";
 
 const History = () => {

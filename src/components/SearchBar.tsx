@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { getGeocodingData, getWeatherData } from "../config/api";
-import { useWeatherContext } from "../context/WeatherContext";
+import { useWeatherContext } from "../hooks/useWeatherContext";
 import GeocodingResult from "./GeocodingResult";
 import TextInput from "./TextInput";
 import type { GeocodingLocation, WeatherData } from "../types/weather";

@@ -1,30 +1,8 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useState } from "react";
 import type { ReactNode } from "react";
 import { getWeatherData } from "../config/api";
 import type { WeatherData } from "../types/weather";
-
-interface WeatherContextType {
-  weatherHistory: WeatherData[];
-  addToHistory: (data: WeatherData) => void;
-  clearHistory: () => void;
-  removeFromHistory: (timestamp: number) => void;
-  refreshWeather: (
-    city: string,
-    country: string,
-    lat: number,
-    lon: number,
-  ) => Promise<void>;
-}
-
-const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
-
-export const useWeatherContext = () => {
-  const context = useContext(WeatherContext);
-  if (context === undefined) {
-    throw new Error("useWeatherContext must be used within a WeatherProvider");
-  }
-  return context;
-};
+import { WeatherContext } from "./WeatherContext.types";
 
 interface WeatherProviderProps {
   children: ReactNode;
