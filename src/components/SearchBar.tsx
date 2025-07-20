@@ -1,5 +1,5 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { getGeocodingData } from "../config/api";
 import GeocodingResult from "./GeocodingResult";
 import TextInput from "./TextInput";
@@ -57,15 +57,15 @@ const SearchBar = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex h-[60px] w-full gap-5">
-        <div className="shadow-custom flex w-full items-center justify-around gap-3 rounded-[20px] bg-white/10 pl-6 backdrop-blur-2xl">
+      <div className="flex w-full flex-row gap-2 sm:gap-5">
+        <div className="shadow-custom flex h-[40px] w-full min-w-0 flex-1 items-center justify-around gap-3 rounded-lg bg-white/10 px-4 py-2 backdrop-blur-2xl sm:h-[60px] sm:rounded-[20px] sm:pl-6">
           <TextInput
             inputId="city-input"
             label="City"
             placeholder="Tokyo"
             value={city}
             onChange={setCity}
-            className="w-[50%]"
+            className="min-w-0 flex-1"
             required
           />
           <TextInput
@@ -74,13 +74,13 @@ const SearchBar = () => {
             placeholder="JP"
             value={countryCode}
             onChange={setCountryCode}
-            className="w-[50%]"
+            className="min-w-0 flex-1"
           />
         </div>
         <button
           onClick={handleSearch}
           onKeyPress={handleKeyPress}
-          className="bg-purple-custom flex-center h-[60px] w-[60px] cursor-pointer rounded-[20px] border-none text-white transition-all duration-300 ease-in-out hover:bg-purple-600"
+          className="bg-purple-custom flex-center h-[40px] w-[40px] flex-none cursor-pointer rounded-lg border-none text-white transition-all duration-300 ease-in-out hover:bg-purple-600 sm:h-[60px] sm:w-[60px] sm:rounded-[20px]"
         >
           <svg
             width="20"

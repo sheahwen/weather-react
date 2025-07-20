@@ -20,7 +20,7 @@ const TextInput = ({
   required = false,
 }: TextInputProps) => {
   return (
-    <div className={`flex flex-col text-black/40 ${className}`}>
+    <div className={`flex min-w-0 flex-col text-black/40 ${className}`}>
       <label htmlFor={inputId} className="text-[10px]">
         {label}
       </label>
